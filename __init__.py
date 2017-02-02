@@ -1,4 +1,5 @@
 import requests
+from exceptions import APIError
 
 class Pypertrail(object):
     def __init__(self, api_token):
@@ -13,4 +14,7 @@ class Pypertrail(object):
         payload.update(opts)
         uri = 'https://papertrailapp.com/api/v1/events/search.json'
         r = requests.get(uri, headers=self.headers, params=payload)
-        return r.json()
+        if r.status_code != 200:
+            raise APIError(r)
+        else:
+            return r.json()
