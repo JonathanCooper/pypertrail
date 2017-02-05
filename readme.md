@@ -10,5 +10,4 @@ Example
 
     >>> import time
     >>> hour_ago = time.time() - 3600
-    >>> opts = {'min_time': hour_ago}
-    >>> resp = pt.search_events('OutOfMemory', opts=opts)
+    >>> resp = pt.search_events('OutOfMemory', min_time=hour_ago)
