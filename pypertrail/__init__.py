@@ -9,6 +9,11 @@ class Pypertrail(object):
         }
     
     def check_search_args(args):
+        param_names = set(['group_id', 'system_id', 'min_id', 'min_time',
+            'max_id', 'max_time'])
+        for arg in args:
+            if arg not in param_names:
+                raise TypeError('Unexpected query argument: {0}'.format(arg))
         max_of_ones = [('group_id', 'system_id'),
             ('min_id', 'min_time'),
             ('max_id', 'max_time')]
