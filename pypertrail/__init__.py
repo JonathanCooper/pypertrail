@@ -7,15 +7,19 @@ class Pypertrail(object):
             'X-Papertrail-Token': api_token,
             'User-Agent': 'https://github.com/JonathanCooper/pypertrail'
         }
-
-    def search_events(self, search_string, **kwargs):
-        param_names = ['group_id', 'system_id', 'min_id', 'min_time', 'max_id',
-            'max_time']
-        params = {'q': search_string}
+    
+    def check_search_args(args):
         max_of_ones = [('group_id', 'system_id'),
             ('min_id', 'min_time'),
             ('max_id', 'max_time')]
-        set_keys = set(kwargs.keys())
+        for tup in max_of_ones:
+             if tup[0] in set_keys and tup[1] in args:
+                raise TypeError('You can only use 1 of {0}, {1}'.format(tup[0],
+                    tup[1]))        
+
+    def search_events(self, search_string, **kwargs):
+        params = {'q': search_string}
+        self.check_search_args(set(kwargs.keys()))
         for tup in max_of_ones:
             if tup[0] in set_keys and tup[1] in set_keys:
                 raise TypeError('You can only use 1 of {0}, {1}'.format(tup[0], tup[1]))
