@@ -20,9 +20,6 @@ class Pypertrail(object):
     def search_events(self, search_string, **kwargs):
         params = {'q': search_string}
         self.check_search_args(set(kwargs.keys()))
-        for tup in max_of_ones:
-            if tup[0] in set_keys and tup[1] in set_keys:
-                raise TypeError('You can only use 1 of {0}, {1}'.format(tup[0], tup[1]))
         params.update(kwargs)
         uri = 'https://papertrailapp.com/api/v1/events/search.json'
         r = requests.get(uri, headers=self.headers, params=params)
