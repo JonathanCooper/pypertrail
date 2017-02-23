@@ -2,6 +2,8 @@ import requests
 from exceptions import APIResponseError
 
 class Pypertrail(object):
+
+
     def __init__(self, api_token):
         self.headers = {
             'X-Papertrail-Token': api_token,
